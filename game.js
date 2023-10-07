@@ -2,26 +2,42 @@ const Player = (name) => {
   const getName = () => name;
   return { getName };
 };
+const clickHandler = (e) => {
+  // e.currentTarget.style["background-color"] = "red";
+  gameBoard.setBoard(e.currentTarget.id, "X");
+};
 
 const gameBoard = (() => {
-  let board = ["2", "1", "1", "3", "1", "2", "1", "1", "1"];
+  let board = ["1", "1", "2", "", "", "", "", "", ""];
+
   const getBoard = () => board;
   const setBoard = (index, value) => {
     board[index] = value;
+    if (document.getElementById(index).innerHTML === "") {
+      document.getElementById(index).innerHTML += value;
+    } else {
+      alert("This cell is already taken");
+    }
   };
   const resetBoard = () => {
     board = ["", "", "", "", "", "", "", "", ""];
   };
-  return { getBoard, setBoard, resetBoard };
+  const renderGameBoard = () => {
+    getBoard().map((element, index) => {
+      boardContainer.innerHTML += `<div class="cell" id=${index} key=${index}>${element}</div>`;
+    });
+  };
+  return { getBoard, setBoard, resetBoard, renderGameBoard };
 })();
 
 let boardContainer = document.getElementById("container");
 
-gameBoard.setBoard(0, "d");
+gameBoard.renderGameBoard();
 
-gameBoard.getBoard().map((element, index) => {
-  return (boardContainer.innerHTML += `<div class="cell" key=${index} data-index=${index}>${element}</div>`);
-});
+var list = document.querySelectorAll(".cell");
+for (let item of list) {
+  item.addEventListener("click", clickHandler, { once: true });
+}
 
 // const displayController = (() => {
 //   const displayBoard = () => {

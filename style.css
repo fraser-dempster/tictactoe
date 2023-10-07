@@ -11,9 +11,17 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  grid-area: auto;
 }
 
-.cell {
+.cell:nth-child(n) {
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  align-items: center;
+  justify-content: center;
+
   font-size: 3rem;
-  margin: auto;
+  background-color: aliceblue;
 }

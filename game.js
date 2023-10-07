@@ -2,6 +2,9 @@ let xTurn = true;
 
 const Player = (name) => {
   const getName = () => name;
+  const setName = (newName) => {
+    name = newName;
+  };
   return { getName };
 };
 
@@ -32,7 +35,10 @@ const gameBoard = (() => {
     }
   };
   const resetBoard = () => {
+    xTurn = true;
     board = ["", "", "", "", "", "", "", "", ""];
+    document.getElementsByClassName("outcome-container")[0].innerHTML = "";
+    displayController.displayBoard();
   };
   const renderGameBoard = () => {
     getBoard().map((element, index) => {
@@ -83,32 +89,21 @@ const displayController = (() => {
     winningConditions.forEach((condition) => {
       const [a, b, c] = condition;
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-        alert("You win");
+        if (board[a] === "X") {
+          document.getElementsByClassName(
+            "outcome-container"
+          )[0].innerHTML = `<dialog open class="outcome">${player1.getName()} wins</dialog>`;
+        } else {
+          document.getElementsByClassName(
+            "outcome-container"
+          )[0].innerHTML = `<dialog open class="outcome">${player2.getName()} wins</dialog>`;
+        }
       }
     });
     if (!board.includes("")) {
       alert("It's a draw");
     }
   };
-  // const addClickEvent = () => {
-  //   const cells = document.querySelectorAll(".cell");
-  //   cells.forEach((cell) => {
-  //     cell.addEventListener("click", clickHandler);
-  //   });
-  // };
-
-  // const displayMessage = (message) => {
-  //   const messageContainer = document.querySelector(".message-container");
-  //   messageContainer.textContent = message;
-  // };
-  // const displayResetButton = () => {
-  //   const resetButton = document.querySelector(".reset-button");
-  //   resetButton.style.display = "block";
-  // };
-  // const hideResetButton = () => {
-  //   const resetButton = document.querySelector(".reset-button");
-  //   resetButton.style.display = "none";
-  // };
   return {
     displayBoard,
     playerTurn,
@@ -117,7 +112,21 @@ const displayController = (() => {
   };
 })();
 
-displayController.displayBoard();
+// aiPlayer = () => {
+//   const board = gameBoard.getBoard();
+//   const randomIndex = Math.floor(Math.random() * board.length);
+//   if (board[randomIndex] === "") {
+//     gameBoard.setBoard(randomIndex, "O");
+//   } else {
+//     aiPlayer();
+//   }
+// };
 
-const player1 = Player("Player 1");
-const player2 = Player("Player 2");
+displayController.displayBoard();
+document
+  .querySelector("button")
+  .addEventListener("click", gameBoard.resetBoard);
+// aiPlayer();
+
+const player1 = Player("Joelle");
+const player2 = Player("Fraser");

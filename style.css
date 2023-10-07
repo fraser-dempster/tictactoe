@@ -45,6 +45,18 @@ p {
   background-color: aliceblue;
 }
 
+.outcome {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  margin: 0;
+  font-size: 3rem;
+  background-color: aliceblue;
+  grid-area: header;
+}
+
 /* .toggle {
   display: inline-block;
   width: 80px;

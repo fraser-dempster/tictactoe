@@ -14,17 +14,20 @@
   </head>
   <body>
     <div class="header">
-      <p style="font-weight: bold">TicTacToe</p>
+      <p style="font-weight: bold">Noughts and crosses</p>
       <div class="buttons">
-        <button id="reset" class="blue_button">Reset</button>
+        <button onclick="clickHandler" id="reset" class="blue_button">
+          Reset
+        </button>
       </div>
+
       <!-- <div class="toggle">
         <input type="checkbox" id="toggle-checkbox" class="toggle-checkbox" />
         <label for="toggle-checkbox" class="toggle-label"></label>
       </div> -->
       <div class="player-turn"></div>
     </div>
-
+    <div class="outcome-container"></div>
     <div class="container" id="container"></div>
   </body>
 </html>

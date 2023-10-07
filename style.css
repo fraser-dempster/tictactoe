@@ -1,27 +1,45 @@
 body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.5fr 5fr;
+  grid-template-areas: "header" "game";
+
   margin: 0;
   width: 100vw;
   max-width: 100%;
   height: 100vh;
 }
 
+p {
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 3rem;
+  background-color: aliceblue;
+  grid-area: header;
+}
+
 .container {
-  height: 100vh;
+  grid-area: game;
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  grid-area: auto;
+  grid-template-areas: auto;
 }
 
 .cell:nth-child(n) {
   display: flex;
-  height: 100%;
-  width: 100%;
 
   align-items: center;
   justify-content: center;
-
   font-size: 3rem;
   background-color: aliceblue;
 }

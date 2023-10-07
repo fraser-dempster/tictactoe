@@ -1,10 +1,11 @@
+const clickHandler = (e) => {
+  gameBoard.setBoard(e.currentTarget.id, "X");
+};
+
 const Player = (name) => {
   const getName = () => name;
+
   return { getName };
-};
-const clickHandler = (e) => {
-  // e.currentTarget.style["background-color"] = "red";
-  gameBoard.setBoard(e.currentTarget.id, "X");
 };
 
 const gameBoard = (() => {
@@ -30,44 +31,47 @@ const gameBoard = (() => {
   return { getBoard, setBoard, resetBoard, renderGameBoard };
 })();
 
-let boardContainer = document.getElementById("container");
+const displayController = (() => {
+  const displayBoard = () => {
+    const board = gameBoard.getBoard();
+    const boardContainer = document.querySelector(".container");
+    boardContainer.innerHTML = "";
+    board.forEach((element, index) => {
+      const cell = document.createElement("div");
+      cell.classList.add("cell");
+      cell.setAttribute("id", index);
+      cell.setAttribute("data-index", index);
+      cell.textContent = element;
+      cell.addEventListener("click", clickHandler);
+      boardContainer.appendChild(cell);
+    });
+  };
 
-gameBoard.renderGameBoard();
+  // const addClickEvent = () => {
+  //   const cells = document.querySelectorAll(".cell");
+  //   cells.forEach((cell) => {
+  //     cell.addEventListener("click", clickHandler);
+  //   });
+  // };
 
-var list = document.querySelectorAll(".cell");
-for (let item of list) {
-  item.addEventListener("click", clickHandler, { once: true });
-}
+  // const displayMessage = (message) => {
+  //   const messageContainer = document.querySelector(".message-container");
+  //   messageContainer.textContent = message;
+  // };
+  // const displayResetButton = () => {
+  //   const resetButton = document.querySelector(".reset-button");
+  //   resetButton.style.display = "block";
+  // };
+  // const hideResetButton = () => {
+  //   const resetButton = document.querySelector(".reset-button");
+  //   resetButton.style.display = "none";
+  // };
+  return {
+    displayBoard,
+  };
+})();
 
-// const displayController = (() => {
-//   const displayBoard = () => {
-//     const board = gameBoard.getBoard();
-//     const boardContainer = document.querySelector(".board-container");
-//     boardContainer.innerHTML = "";
-//     board.forEach((element, index) => {
-//       const cell = document.createElement("div");
-//       cell.classList.add("cell");
-//       cell.setAttribute("data-index", index);
-//       cell.textContent = element;
-//       boardContainer.appendChild(cell);
-//     });
-//   };
-//   const displayMessage = (message) => {
-//     const messageContainer = document.querySelector(".message-container");
-//     messageContainer.textContent = message;
-//   };
-//   const displayResetButton = () => {
-//     const resetButton = document.querySelector(".reset-button");
-//     resetButton.style.display = "block";
-//   };
-//   const hideResetButton = () => {
-//     const resetButton = document.querySelector(".reset-button");
-//     resetButton.style.display = "none";
-//   };
-//   return {
-//     displayBoard,
-//     displayMessage,
-//     displayResetButton,
-//     hideResetButton,
-//   };
-// })();
+displayController.displayBoard();
+
+const player1 = Player("Player 1");
+const player2 = Player("Player 2");

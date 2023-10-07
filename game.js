@@ -10,10 +10,12 @@ const clickHandler = (e) => {
     gameBoard.setBoard(e.currentTarget.id, "X");
     xTurn = false;
     displayController.playerTurn();
+    displayController.winConditions();
   } else {
     gameBoard.setBoard(e.currentTarget.id, "O");
     xTurn = true;
     displayController.playerTurn();
+    displayController.winConditions();
   }
 };
 
@@ -65,6 +67,29 @@ const displayController = (() => {
       : (playerTurn.textContent = "Player 2's turn");
   };
 
+  const winConditions = () => {
+    const board = gameBoard.getBoard();
+    const winningConditions = [
+      [0, 1, 2],
+      [0, 3, 6],
+      [0, 4, 8],
+      [3, 4, 5],
+      [6, 7, 8],
+      [1, 4, 7],
+      [2, 5, 8],
+      [2, 4, 6],
+    ];
+
+    winningConditions.forEach((condition) => {
+      const [a, b, c] = condition;
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+        alert("You win");
+      }
+    });
+    if (!board.includes("")) {
+      alert("It's a draw");
+    }
+  };
   // const addClickEvent = () => {
   //   const cells = document.querySelectorAll(".cell");
   //   cells.forEach((cell) => {
@@ -88,6 +113,7 @@ const displayController = (() => {
     displayBoard,
     playerTurn,
     clickHandler,
+    winConditions,
   };
 })();
 

@@ -69,8 +69,8 @@ const displayController = (() => {
     const playerTurn = document.querySelector(".player-turn");
 
     xTurn
-      ? (playerTurn.textContent = "Player 1's turn")
-      : (playerTurn.textContent = "Player 2's turn");
+      ? (playerTurn.textContent = `${player1.getName()}'s turn`)
+      : (playerTurn.textContent = `${player2.getName()}'s turn`);
   };
 
   const winConditions = () => {
@@ -121,12 +121,11 @@ const displayController = (() => {
 //     aiPlayer();
 //   }
 // };
+const player1 = Player("Joelle");
+const player2 = Player("Fraser");
 
 displayController.displayBoard();
 document
   .querySelector("button")
   .addEventListener("click", gameBoard.resetBoard);
 // aiPlayer();
-
-const player1 = Player("Joelle");
-const player2 = Player("Fraser");

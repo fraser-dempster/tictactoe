@@ -1,15 +1,24 @@
-const clickHandler = (e) => {
-  gameBoard.setBoard(e.currentTarget.id, "X");
-};
+let xTurn = true;
 
 const Player = (name) => {
   const getName = () => name;
-
   return { getName };
 };
 
+const clickHandler = (e) => {
+  if (xTurn) {
+    gameBoard.setBoard(e.currentTarget.id, "X");
+    xTurn = false;
+    displayController.playerTurn();
+  } else {
+    gameBoard.setBoard(e.currentTarget.id, "O");
+    xTurn = true;
+    displayController.playerTurn();
+  }
+};
+
 const gameBoard = (() => {
-  let board = ["1", "1", "2", "", "", "", "", "", ""];
+  let board = ["", "", "", "", "", "", "", "", ""];
 
   const getBoard = () => board;
   const setBoard = (index, value) => {
@@ -44,7 +53,16 @@ const displayController = (() => {
       cell.textContent = element;
       cell.addEventListener("click", clickHandler);
       boardContainer.appendChild(cell);
+      playerTurn();
     });
+  };
+
+  const playerTurn = () => {
+    const playerTurn = document.querySelector(".player-turn");
+
+    xTurn
+      ? (playerTurn.textContent = "Player 1's turn")
+      : (playerTurn.textContent = "Player 2's turn");
   };
 
   // const addClickEvent = () => {
@@ -68,6 +86,8 @@ const displayController = (() => {
   // };
   return {
     displayBoard,
+    playerTurn,
+    clickHandler,
   };
 })();
 
